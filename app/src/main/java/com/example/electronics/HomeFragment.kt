@@ -22,7 +22,9 @@ class HomeFragment: Fragment() {
     private val binding get() = _binding!!
 
     private val viewModel: ProductViewModel by viewModels()
-    private var allProducts: List<Product> = emptyList()
+    private var selectedCategory: String = "All"
+    private var searchText: String = ""
+    private var fullProductList: List<Product> = emptyList()
     private lateinit var productAdapter: ProductAdapter
 
     override fun onCreateView(
@@ -61,6 +63,45 @@ class HomeFragment: Fragment() {
             }
         })
 
+        // Set up category button click listeners
+        val categoryButtons = listOf(
+            binding.btnAll to "All",
+            binding.btnCombos to "Gaming",
+            binding.btnSliders to "Audio",
+            binding.btnPhone to "Mobile",
+            binding.btnTV to "TV"
+        )
+
+        fun updateButtonBackgrounds(selected: String) {
+            categoryButtons.forEach { (button, category) ->
+                if (selected == category) {
+                    button.setBackgroundResource(R.drawable.bg_button_selected)
+                } else {
+                    button.setBackgroundResource(R.drawable.bg_button_unselected)
+                }
+            }
+        }
+
+        categoryButtons.forEach { (button, category) ->
+            button.setOnClickListener {
+                selectedCategory = category
+                updateButtonBackgrounds(selectedCategory)
+                filterAndDisplayProducts()
+            }
+        }
+        // Initially set correct backgrounds
+        updateButtonBackgrounds(selectedCategory)
+
+        // Set up search bar filtering
+        binding.etSearch.addTextChangedListener(object : android.text.TextWatcher {
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+                searchText = s?.toString() ?: ""
+                filterAndDisplayProducts()
+            }
+            override fun afterTextChanged(s: android.text.Editable?) {}
+        })
+
         // Observe product list from ViewModel
         viewLifecycleOwner.lifecycleScope.launch {
             viewModel.productList.collectLatest { products ->
@@ -71,7 +112,8 @@ class HomeFragment: Fragment() {
                     Log.d("HomeFragment", "Product $index: ${product.title} - ${product.category}")
                 }
                 
-                productAdapter.updateData(products)
+                fullProductList = products
+                filterAndDisplayProducts()
                 
                 if (products.isNotEmpty()) {
                     Log.d("HomeFragment", "First product: ${products.first().title}")
@@ -123,6 +165,20 @@ class HomeFragment: Fragment() {
 
         // Test API connectivity
         testApiConnectivity()
+    }
+
+    private fun filterAndDisplayProducts() {
+        val filtered = fullProductList.filter { product ->
+            val matchesCategory =
+                (selectedCategory == "All") || (product.category.equals(selectedCategory, ignoreCase = true))
+            val matchesSearch =
+                searchText.isBlank() ||
+                product.title.contains(searchText, ignoreCase = true) ||
+                product.brand.contains(searchText, ignoreCase = true)
+            matchesCategory && matchesSearch
+        }
+        productAdapter.updateData(filtered)
+        binding.tvTitle.text = "Electronics (${filtered.size} products)"
     }
     
     private fun testApiConnectivity() {

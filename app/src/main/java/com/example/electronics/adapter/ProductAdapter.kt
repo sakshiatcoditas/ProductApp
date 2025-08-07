@@ -35,8 +35,7 @@ class ProductAdapter(
     override fun onBindViewHolder(holder: ProductViewHolder, position: Int) {
         val product = products[position]
         
-        Log.d("ProductAdapter", "Binding product at position $position: ${product.title}")
-        Log.d("ProductAdapter", "Image URL: ${product.image}")
+
 
         holder.tvProductName.text = product.title
         holder.tvProductBrand.text = product.brand
@@ -50,7 +49,7 @@ class ProductAdapter(
             "https://fakestoreapi.in${product.image}"
         }
         
-        Log.d("ProductAdapter", "Processing image URL: $imageUrl")
+
         
         // Try to load image with multiple fallback options
         Glide.with(holder.itemView.context)
@@ -80,9 +79,9 @@ class ProductAdapter(
     override fun getItemCount(): Int = products.size
 
     fun updateData(newProducts: List<Product>) {
-        Log.d("ProductAdapter", "Updating data: ${products.size} -> ${newProducts.size} products")
+
         products = newProducts
         notifyDataSetChanged()
-        Log.d("ProductAdapter", "Data updated, item count: $itemCount")
+
     }
 }

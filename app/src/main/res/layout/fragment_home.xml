@@ -27,7 +27,7 @@
         android:id="@+id/tvTitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Foodgo"
+        android:text="Electronics"
         android:textSize="24sp"
         android:textStyle="bold"
         android:textColor="@android:color/black"
@@ -41,7 +41,7 @@
         android:id="@+id/tvSubtitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Order your favourite food!"
+        android:text="Branded Products,Affordable Deals!"
         android:textColor="@android:color/darker_gray"
         android:textSize="14sp"
         android:layout_marginTop="4dp"
@@ -66,7 +66,7 @@
             android:id="@+id/ivSearch"
             android:layout_width="24dp"
             android:layout_height="24dp"
-            android:src="@drawable/searchbar"
+            android:src="@drawable/search_24dp_000000_fill0_wght400_grad0_opsz24__1_"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintBottom_toBottomOf="parent" />
@@ -138,7 +138,7 @@
                 android:background="@drawable/bg_button_unselected"
                 android:minWidth="80dp"
                 android:paddingHorizontal="16dp"
-                android:text="Combos"
+                android:text="Gaming"
                 android:textColor="@android:color/white"
                 android:textSize="14sp" />
 
@@ -150,7 +150,7 @@
                 android:background="@drawable/bg_button_unselected"
                 android:minWidth="80dp"
                 android:paddingHorizontal="16dp"
-                android:text="Sliders"
+                android:text="Audio"
                 android:textColor="@android:color/white"
                 android:textSize="14sp" />
 
@@ -162,7 +162,7 @@
                 android:background="@drawable/bg_button_unselected"
                 android:minWidth="80dp"
                 android:paddingHorizontal="16dp"
-                android:text="Phone"
+                android:text="Mobile"
                 android:textColor="@android:color/white"
                 android:textSize="14sp" />
 
