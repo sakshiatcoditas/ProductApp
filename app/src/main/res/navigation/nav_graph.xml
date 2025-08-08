@@ -18,4 +18,13 @@
         android:id="@+id/profileFragment"
         android:name="com.example.electronics.ProfileFragment"
         android:label="Profile" />
+
+    <fragment
+        android:id="@+id/productDetailFragment"
+        android:name="com.example.electronics.ProductDetailFragment"
+        android:label="Product Detail">
+        <argument
+            android:name="productId"
+            app:argType="integer" />
+    </fragment>
 </navigation>

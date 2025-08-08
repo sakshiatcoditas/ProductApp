@@ -1,6 +1,5 @@
 package com.example.electronics.viewmodel
 
-import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.electronics.data.model.Product
@@ -25,32 +24,29 @@ class ProductViewModel : ViewModel() {
     private val _favoriteList = MutableStateFlow<List<Product>>(emptyList())
     val favoriteList: StateFlow<List<Product>> get() = _favoriteList
 
+    private val _selectedProduct = MutableStateFlow<Product?>(null)
+    val selectedProduct: StateFlow<Product?> get() = _selectedProduct
+
     fun fetchProducts() {
         viewModelScope.launch {
             try {
                 _isLoading.value = true
                 _error.value = null
 
-                
                 val response = repository.getAllProducts()
-                
 
-                
                 if (response.isSuccessful) {
                     val productResponse = response.body()
                     val products = productResponse?.products ?: emptyList()
 
-                        // Test if the image URL is valid
-
-                    _productList.value = products
-
+                    // Ensure all products start with isFavorite = false
+                    val productsWithFavoriteState = products.map { it.copy(isFavorite = false) }
+                    _productList.value = productsWithFavoriteState
                 } else {
                     _error.value = "Failed to fetch products: ${response.code()}"
-
                 }
             } catch (e: Exception) {
                 _error.value = "Network error: ${e.message}"
-                Log.e("ProductViewModel", "Exception during API call", e)
             } finally {
                 _isLoading.value = false
             }
@@ -58,20 +54,50 @@ class ProductViewModel : ViewModel() {
     }
 
     fun toggleFavorite(product: Product) {
-        product.isFavorite = !product.isFavorite
-        // Trigger update by reassigning the list
-        _productList.value = _productList.value.map {
-            if (it.id == product.id) product else it
+        // Find the current product in the list and get its current favorite state
+        val currentProduct = _productList.value.find { it.id == product.id }
+        val currentFavoriteState = currentProduct?.isFavorite ?: false
+        val newFavoriteState = !currentFavoriteState
+        
+        // Update the product in the main list
+        val updatedList = _productList.value.map { existingProduct -> 
+            if (existingProduct.id == product.id) {
+                existingProduct.copy(isFavorite = newFavoriteState)
+            } else {
+                existingProduct
+            }
         }
+        _productList.value = updatedList
+        
+        // Update favorites list
         updateFavorites()
     }
 
     private fun updateFavorites() {
-        _favoriteList.value = _productList.value.filter { it.isFavorite }
+        val favorites = _productList.value.filter { it.isFavorite }
+        _favoriteList.value = favorites
     }
 
     fun clearError() {
         _error.value = null
+    }
+
+    fun fetchProductById(productId: Int) {
+        viewModelScope.launch {
+            _isLoading.value = true
+            try {
+                val response = repository.getProductById(productId)
+                if (response.isSuccessful) {
+                    _selectedProduct.value = response.body()?.product
+                } else {
+                    _error.value = "Failed to fetch product: ${response.code()}"
+                }
+            } catch (e: Exception) {
+                _error.value = "Network error: ${e.message}"
+            } finally {
+                _isLoading.value = false
+            }
+        }
     }
 }
 

@@ -1,251 +1,272 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@android:color/white"
-    android:fillViewport="true">
+    android:background="@android:color/white">
 
-    <LinearLayout
+    <!-- Scrollable Content -->
+    <ScrollView
+        android:id="@+id/scrollView"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:padding="16dp">
+        android:layout_height="match_parent"
+        android:fillViewport="true">
 
-        <!-- Back Button -->
-        <ImageButton
-            android:id="@+id/btnBack"
-            android:layout_width="48dp"
-            android:layout_height="48dp"
-            android:layout_gravity="start"
-            android:background="@color/white"
-            android:src="@drawable/outline_arrow_left_alt_24"
-            android:contentDescription="Back"
-
-            android:layout_marginBottom="8dp" />
-
-        <!-- Product Image -->
-        <ImageView
-            android:id="@+id/imgProduct"
-            android:layout_width="match_parent"
-            android:layout_height="250dp"
-            android:scaleType="centerCrop"
-            />
-
-        <!-- Title -->
-        <TextView
-            android:id="@+id/tvProductName"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Product Title"
-            android:textSize="20sp"
-            android:textStyle="bold"
-            android:layout_marginTop="16dp"
-            android:textColor="@android:color/black" />
-
-        <!-- Product Brand -->
-        <TextView
-            android:id="@+id/tvProductBrand"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Brand Name"
-            android:textSize="14sp"
-            android:textColor="@android:color/darker_gray"
-            android:layout_marginTop="4dp" />
-
-        <!-- Category -->
-        <TextView
-            android:id="@+id/tvCategory"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Category"
-            android:textSize="14sp"
-            android:textColor="@android:color/darker_gray"
-            android:layout_marginTop="2dp" />
-
-        <!-- Product Brand / Model -->
-        <TextView
-            android:id="@+id/tvProductmodel"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Wendy's Brand"
-            android:textSize="16sp"
-            android:textColor="@android:color/darker_gray"
-            android:layout_marginTop="4dp" />
-
-
-        <!-- Color -->
-        <TextView
-            android:id="@+id/tvColor"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Color"
-            android:textSize="14sp"
-            android:textColor="@android:color/darker_gray"
-            android:layout_marginTop="2dp" />
-
-        <!-- Discount -->
-        <TextView
-            android:id="@+id/tvDiscount"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="20% OFF"
-            android:textSize="14sp"
-            android:textColor="@android:color/holo_red_dark"
-            android:layout_marginTop="2dp" />
-
-
-        <TextView
-            android:id="@+id/tvRating"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="⭐ 4.9 "
-            android:textSize="14sp"
-            android:textColor="@android:color/darker_gray"
-            android:layout_marginTop="4dp" />
-
-        <!-- Description -->
-        <TextView
-            android:id="@+id/tvDescription"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="The Cheeseburger Wendy’s Burger is a classic fast food burger that packs a punch of flavor in every bite. "
-            android:textSize="14sp"
-            android:textColor="@android:color/black"
-            android:layout_marginTop="8dp" />
-
-        <!-- Spicy Slider and Quantity -->
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:layout_marginTop="24dp"
-            android:gravity="center_vertical"
-            android:weightSum="2">
+            android:orientation="vertical"
+            android:padding="16dp">
 
-            <!-- Spicy Slider -->
+            <!-- Back Button -->
             <LinearLayout
-                android:layout_weight="1"
-                android:layout_width="0dp"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical">
+                android:orientation="horizontal"
+                android:layout_marginBottom="8dp">
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Spicy"
-                    android:textSize="14sp"
-                    android:textColor="@android:color/black" />
+                <ImageButton
+                    android:id="@+id/btnBack"
+                    android:layout_width="48dp"
+                    android:layout_height="48dp"
+                    android:layout_gravity="top|start"
+                    android:layout_margin="16dp"
+                    android:background="@android:color/transparent"
+                    android:src="@drawable/outline_arrow_left_alt_24"
+                    android:contentDescription="Back" />
 
-                <SeekBar
-                    android:id="@+id/seekBarSpicy"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:max="2"
-                    android:progress="1" />
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:gravity="center_vertical">
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Mild"
-                        android:textSize="12sp"
-                        android:textColor="@android:color/darker_gray" />
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Hot"
-                        android:textSize="12sp"
-                        android:textColor="@android:color/darker_gray"
-                        android:layout_gravity="end" />
-                </LinearLayout>
             </LinearLayout>
 
-            <!-- Portion Counter -->
-            <LinearLayout
-                android:layout_weight="1"
-                android:layout_width="0dp"
+
+            <!-- Product Image -->
+            <ImageView
+                android:id="@+id/imgProduct"
+                android:layout_width="match_parent"
+                android:layout_height="250dp"
+                android:scaleType="centerCrop" />
+
+            <!-- Title -->
+            <TextView
+                android:id="@+id/tvProductName"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:gravity="end"
-                android:orientation="vertical">
+                android:text="Product Title"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                android:layout_marginTop="16dp"
+                android:textColor="@android:color/black" />
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Portion"
-                    android:textSize="14sp"
-                    android:textColor="@android:color/black"
-                    android:layout_gravity="end" />
+            <!-- Product Brand -->
+            <TextView
+                android:id="@+id/tvProductBrand"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Brand Name"
+                android:textSize="14sp"
+                android:textColor="@android:color/black"
+                android:layout_marginTop="4dp" />
 
+            <!-- Category -->
+            <TextView
+                android:id="@+id/tvCategory"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Category"
+                android:textSize="14sp"
+                android:textColor="@android:color/black"
+                android:layout_marginTop="2dp" />
+
+            <!-- Product Brand / Model -->
+            <TextView
+                android:id="@+id/tvProductmodel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Wendy's Brand"
+                android:textSize="16sp"
+                android:textColor="@android:color/black"
+                android:layout_marginTop="4dp" />
+
+            <!-- Color -->
+            <TextView
+                android:id="@+id/tvColor"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Color"
+                android:textSize="14sp"
+                android:textColor="@android:color/black"
+                android:layout_marginTop="2dp" />
+
+            <!-- Discount -->
+            <TextView
+                android:id="@+id/tvDiscount"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="20% OFF"
+                android:textSize="14sp"
+                android:textColor="@android:color/black"
+                android:layout_marginTop="2dp" />
+
+            <!-- Rating -->
+            <TextView
+                android:id="@+id/tvRating"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="⭐ 4.9 "
+                android:textSize="14sp"
+                android:textColor="@android:color/black"
+                android:layout_marginTop="4dp" />
+
+            <!-- Description -->
+            <TextView
+                android:id="@+id/tvDescription"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="The Cheeseburger Wendy’s Burger is a classic fast food burger that packs a punch of flavor in every bite. "
+                android:textSize="14sp"
+                android:textColor="@android:color/black"
+                android:layout_marginTop="8dp" />
+
+            <!-- Spicy Slider and Quantity -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginTop="24dp"
+                android:gravity="center_vertical"
+                android:weightSum="2">
+
+                <!-- Spicy Slider -->
                 <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="40dp"
-                    android:orientation="horizontal"
-                    android:gravity="center_vertical">
-
-                    <Button
-                        android:id="@+id/btnMinus"
-                        android:layout_width="48dp"
-                        android:layout_height="48dp"
-                        android:text="-"
-                        android:textSize="20sp" />
+                    android:layout_weight="1"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
 
                     <TextView
-                        android:id="@+id/tvQuantity"
-                        android:layout_width="40dp"
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:gravity="center"
-                        android:text="2"
-                        android:textSize="16sp"
-                        android:padding="8dp"
+                        android:text="Spicy"
+                        android:textSize="14sp"
                         android:textColor="@android:color/black" />
 
-                    <Button
-                        android:id="@+id/btnPlus"
-                        android:layout_width="48dp"
-                        android:layout_height="48dp"
-                        android:text="+"
-                        android:textSize="20sp" />
+                    <SeekBar
+                        android:id="@+id/seekBarSpicy"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:max="2"
+                        android:progress="1" />
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:gravity="center_vertical">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Mild"
+                            android:textSize="12sp"
+                            android:textColor="@android:color/darker_gray" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Hot"
+                            android:textSize="12sp"
+                            android:textColor="@android:color/darker_gray"
+                            android:layout_gravity="end" />
+                    </LinearLayout>
+                </LinearLayout>
+
+                <!-- Portion Counter -->
+                <LinearLayout
+                    android:layout_weight="1"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:gravity="end"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Portion"
+                        android:textSize="14sp"
+                        android:textColor="@android:color/black"
+                        android:layout_gravity="end" />
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="40dp"
+                        android:orientation="horizontal"
+                        android:gravity="center_vertical">
+
+                        <Button
+                            android:id="@+id/btnMinus"
+                            android:layout_width="48dp"
+                            android:layout_height="48dp"
+                            android:text="-"
+                            android:textSize="20sp" />
+
+                        <TextView
+                            android:id="@+id/tvQuantity"
+                            android:layout_width="40dp"
+                            android:layout_height="wrap_content"
+                            android:gravity="center"
+                            android:text="2"
+                            android:textSize="16sp"
+                            android:padding="8dp"
+                            android:textColor="@android:color/black" />
+
+                        <Button
+                            android:id="@+id/btnPlus"
+                            android:layout_width="48dp"
+                            android:layout_height="48dp"
+                            android:text="+"
+                            android:textSize="20sp" />
+                    </LinearLayout>
                 </LinearLayout>
             </LinearLayout>
-        </LinearLayout>
 
-        <!-- Price and Order Button -->
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="24dp"
-            android:orientation="horizontal"
-            android:weightSum="2">
-
-            <TextView
-                android:id="@+id/tvPrice"
-                android:layout_weight="1"
-                android:layout_width="0dp"
+            <!-- Price and Order Button -->
+            <LinearLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="$8.24"
-                android:textColor="@android:color/black"
-                android:textSize="18sp"
-                android:gravity="center"
-                android:padding="12dp"
-                android:layout_marginEnd="8dp" />
+                android:layout_marginTop="24dp"
+                android:orientation="horizontal"
+                android:weightSum="2">
 
-            <Button
-                android:id="@+id/btnOrder"
-                android:layout_weight="1"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:text="ORDER NOW"
-                android:textColor="@android:color/white"
-                android:textSize="16sp"
-                android:background="@color/black"
-                />
+                <TextView
+                    android:id="@+id/tvPrice"
+                    android:layout_weight="1"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:text="$8.24"
+                    android:textColor="@android:color/black"
+                    android:textSize="18sp"
+                    android:gravity="center"
+                    android:padding="12dp"
+                    android:layout_marginEnd="8dp" />
+
+                <Button
+                    android:id="@+id/btnOrder"
+                    android:layout_weight="1"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:text="ORDER NOW"
+                    android:textColor="@android:color/white"
+                    android:textSize="16sp"
+                    android:background="@color/black" />
+            </LinearLayout>
         </LinearLayout>
-    </LinearLayout>
-</ScrollView>
+    </ScrollView>
+
+    <!-- Loading ProgressBar overlay -->
+    <ProgressBar
+        android:id="@+id/progressBar"
+        style="?android:attr/progressBarStyleLarge"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="gone"
+        android:layout_gravity="center" />
+</FrameLayout>

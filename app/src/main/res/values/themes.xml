@@ -12,6 +12,14 @@
         <item name="android:navigationBarColor">@color/white</item>
     </style>
 
+    <!-- No Action Bar theme for splash screen -->
+    <style name="Theme.Electronics.NoActionBar" parent="Theme.MaterialComponents.DayNight.NoActionBar">
+        <item name="android:windowBackground">@color/white</item>
+        <item name="android:statusBarColor">@color/white</item>
+        <item name="android:windowLightStatusBar" tools:targetApi="m">true</item>
+        <item name="android:navigationBarColor">@color/white</item>
+    </style>
+
     <!-- Splash theme -->
     <style name="Theme.Electronics.SplashScreen" parent="Theme.MaterialComponents.DayNight.NoActionBar">
         <item name="android:windowBackground">@color/white</item>

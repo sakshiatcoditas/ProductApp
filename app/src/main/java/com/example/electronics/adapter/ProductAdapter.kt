@@ -1,6 +1,5 @@
 package com.example.electronics.ui.adapter
 
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -15,14 +14,15 @@ import com.example.electronics.data.model.Product
 
 class ProductAdapter(
     private var products: List<Product>,
-    private val onFavoriteClick: (Product) -> Unit // ✅ Callback
+    private val onFavoriteClick: (Product) -> Unit,
+    private val onProductClick: (Product) -> Unit
 ) : RecyclerView.Adapter<ProductAdapter.ProductViewHolder>() {
 
     inner class ProductViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val imgProduct: ImageView = itemView.findViewById(R.id.imgProduct)
         val tvProductName: TextView = itemView.findViewById(R.id.tvProductName)
         val tvProductBrand: TextView = itemView.findViewById(R.id.tvProductBrand)
-        val tvRating: TextView = itemView.findViewById(R.id.tvRating)
+        val tvPrice: TextView = itemView.findViewById(R.id.tvPrice)
         val imgFavorite: ImageView = itemView.findViewById(R.id.imgFavorite)
     }
 
@@ -35,23 +35,16 @@ class ProductAdapter(
     override fun onBindViewHolder(holder: ProductViewHolder, position: Int) {
         val product = products[position]
         
-
-
         holder.tvProductName.text = product.title
-        holder.tvProductBrand.text = product.brand
-        holder.tvRating.text = "${product.discount}% OFF"
+        holder.tvProductBrand.text = product.brand ?: "Unknown Brand"
+        holder.tvPrice.text = "$${product.price}"
 
-        // Load image with comprehensive error handling
         val imageUrl = if (product.image.startsWith("http")) {
             product.image
         } else {
-            // If it's a relative URL, try to make it absolute
             "https://fakestoreapi.in${product.image}"
         }
         
-
-        
-        // Try to load image with multiple fallback options
         Glide.with(holder.itemView.context)
             .load(imageUrl)
             .apply(RequestOptions()
@@ -59,29 +52,39 @@ class ProductAdapter(
                 .error(R.drawable.placeholder_image)
                 .diskCacheStrategy(DiskCacheStrategy.ALL)
                 .centerCrop()
-                .timeout(15000)) // 15 second timeout for cloud storage
+                .timeout(15000))
             .into(holder.imgProduct)
-            
-        // Add a simple text indicator for debugging
-        holder.tvProductName.text = "${product.title} (ID: ${product.id})"
 
         holder.imgFavorite.setImageResource(
             if (product.isFavorite) R.drawable.favlike else R.drawable.fav
         )
 
+        holder.itemView.setOnClickListener {
+            onProductClick(product)
+        }
+
         holder.imgFavorite.setOnClickListener {
-            product.isFavorite = !product.isFavorite
-            notifyItemChanged(position)
-            onFavoriteClick(product) // ✅ Notify ViewModel
+            holder.imgFavorite.animate()
+                .scaleX(0.8f)
+                .scaleY(0.8f)
+                .setDuration(100)
+                .withEndAction {
+                    holder.imgFavorite.animate()
+                        .scaleX(1f)
+                        .scaleY(1f)
+                        .setDuration(100)
+                        .start()
+                }
+                .start()
+            
+            onFavoriteClick(product)
         }
     }
 
     override fun getItemCount(): Int = products.size
 
     fun updateData(newProducts: List<Product>) {
-
         products = newProducts
         notifyDataSetChanged()
-
     }
 }

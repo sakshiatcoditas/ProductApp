@@ -17,12 +17,7 @@
         android:layout_alignParentTop="true"
         android:layout_marginTop="10dp">
 
-        <ImageView
-            android:id="@+id/iv_back"
-            android:layout_width="24dp"
-            android:layout_height="24dp"
-            android:src="@drawable/outline_arrow_back_24"
-            android:contentDescription="Back" />
+
 
         <View
             android:layout_width="0dp"
@@ -68,7 +63,7 @@
             <EditText
                 android:id="@+id/editTextName"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="48dp"
                 android:layout_marginTop="20dp"
                 android:hint="Name"
                 android:text="Sophia Patel"
@@ -80,7 +75,7 @@
             <EditText
                 android:id="@+id/editTextEmail"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="48dp"
                 android:layout_marginTop="12dp"
                 android:hint="Email"
                 android:text="sophiapatel@gmail.com"
@@ -93,7 +88,7 @@
             <EditText
                 android:id="@+id/editTextAddress"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="48dp"
                 android:layout_marginTop="12dp"
                 android:hint="Delivery address"
                 android:text="123 Main St Apartment 4A, New York, NY"
@@ -106,7 +101,7 @@
             <EditText
                 android:id="@+id/editTextPassword"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="48dp"
                 android:layout_marginTop="12dp"
                 android:hint="Password"
                 android:background="@drawable/edit_text_bg"

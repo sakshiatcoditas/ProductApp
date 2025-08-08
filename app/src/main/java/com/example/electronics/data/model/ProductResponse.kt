@@ -4,4 +4,10 @@ data class ProductResponse(
     val status: String,
     val message: String,
     val products: List<Product>
+)
+
+data class SingleProductResponse(
+    val status: String,
+    val message: String,
+    val product: Product
 ) 
