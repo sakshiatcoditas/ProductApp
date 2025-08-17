@@ -15,7 +15,9 @@ import kotlinx.coroutines.launch
 import androidx.navigation.fragment.findNavController
 import androidx.core.os.bundleOf
 import androidx.fragment.app.activityViewModels
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class HomeFragment: Fragment() {
    private  var _binding: FragmentHomeBinding? = null
     val binding get() = _binding!!

@@ -19,7 +19,9 @@ import kotlinx.coroutines.launch
 import androidx.navigation.fragment.findNavController
 import androidx.core.os.bundleOf
 import androidx.fragment.app.activityViewModels
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class FavFragment : Fragment() {
     private var _binding: FragmentFavBinding? = null
     private val binding get() = _binding!!

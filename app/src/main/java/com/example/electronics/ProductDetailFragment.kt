@@ -16,7 +16,9 @@ import com.example.electronics.viewmodel.ProductViewModel
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 import androidx.fragment.app.activityViewModels
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class ProductDetailFragment : Fragment() {
     private var _binding: ProductDetailBinding? = null
     private val binding get() = _binding!!
