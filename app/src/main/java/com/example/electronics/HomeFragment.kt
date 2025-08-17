@@ -17,14 +17,18 @@ import androidx.core.os.bundleOf
 import androidx.fragment.app.activityViewModels
 
 class HomeFragment: Fragment() {
-    private var _binding: FragmentHomeBinding? = null
-    private val binding get() = _binding!!
+   private  var _binding: FragmentHomeBinding? = null
+    val binding get() = _binding!!
 
-    private val viewModel: ProductViewModel by activityViewModels()
-    private var selectedCategory: String = "All"
-    private var searchText: String = ""
-    private var fullProductList: List<Product> = emptyList()
-    private lateinit var productAdapter: ProductAdapter
+   val viewModel: ProductViewModel by activityViewModels()
+    var selectedCategory: String = "All"
+   var searchText: String = ""
+    var fullProductList: List<Product> = emptyList()
+
+
+    lateinit var productAdapter: ProductAdapter
+
+
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -54,7 +58,14 @@ class HomeFragment: Fragment() {
                 viewModel.toggleFavorite(product)
             },
             onProductClick = { product ->
-                findNavController().navigate(R.id.productDetailFragment, bundleOf("productId" to product.id))
+                println("DEBUG: Product clicked - ID: ${product.id}, Title: ${product.title}")
+                try {
+                    findNavController().navigate(R.id.productDetailFragment, bundleOf("productId" to product.id))
+                    println("DEBUG: Navigation successful to product detail")
+                } catch (e: Exception) {
+                    println("DEBUG: Navigation failed: ${e.message}")
+                    e.printStackTrace()
+                }
             }
         )
         binding.recyclerProducts.adapter = productAdapter
@@ -135,7 +146,7 @@ class HomeFragment: Fragment() {
             matchesCategory && matchesSearch
         }
         productAdapter.updateData(filtered)
-        binding.tvTitle.text = "Electronics (${filtered.size} products)"
+
     }
 
     override fun onDestroyView() {

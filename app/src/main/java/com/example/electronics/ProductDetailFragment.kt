@@ -38,13 +38,32 @@ class ProductDetailFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         setupUI()
         val productId = arguments?.getInt("productId") ?: -1
-        viewModel.fetchProductById(productId)
+        println("DEBUG: ProductDetailFragment created with productId: $productId")
+        
+        if (productId == -1) {
+            println("DEBUG: ERROR - No productId received!")
+            // Show error or navigate back
+            findNavController().navigateUp()
+            return
+        }
+        
+        // Try to get product from the already loaded list first
+        val productFromList = viewModel.getProductFromList(productId)
+        if (productFromList != null) {
+
+            viewModel.setSelectedProduct(productFromList)
+        } else {
+
+            viewModel.fetchProductById(productId)
+        }
+        
         observeProductDetails()
     }
 
     private fun observeProductDetails() {
         viewLifecycleOwner.lifecycleScope.launch {
             viewModel.selectedProduct.collectLatest { product ->
+                println("DEBUG: ProductDetailFragment received product: ${product?.title ?: "null"}")
                 if (product == null) {
                     binding.progressBar.visibility = View.VISIBLE
                     binding.scrollView.visibility = View.GONE
@@ -75,7 +94,7 @@ class ProductDetailFragment : Fragment() {
         }
 
         binding.btnOrder.setOnClickListener {
-            // Order functionality can be implemented here
+
         }
     }
 
