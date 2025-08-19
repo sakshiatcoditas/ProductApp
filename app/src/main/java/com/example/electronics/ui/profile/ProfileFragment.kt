@@ -1,11 +1,11 @@
-// ProfileFragment.kt
-package com.example.electronics
+package com.example.electronics.ui.profile
 
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import com.example.electronics.R
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint

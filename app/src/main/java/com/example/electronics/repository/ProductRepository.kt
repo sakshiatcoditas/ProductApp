@@ -1,9 +1,8 @@
-package com.example.electronics.data.repository
+package com.example.electronics.repository
 
 import com.example.electronics.data.api.ApiService
 import com.example.electronics.data.model.Product
 import com.example.electronics.data.model.ProductResponse
-import com.example.electronics.data.model.SingleProductResponse
 import retrofit2.Response
 import javax.inject.Inject
 import javax.inject.Singleton
