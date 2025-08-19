@@ -1,21 +1,27 @@
-package com.example.electronics
+package com.example.electronics.ui.home
+
 import android.os.Bundle
+import android.text.Editable
+import android.text.TextWatcher
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
+import com.example.electronics.R
 import com.example.electronics.data.model.Product
 import com.example.electronics.databinding.FragmentHomeBinding
 import com.example.electronics.ui.adapter.ProductAdapter
 import com.example.electronics.viewmodel.ProductViewModel
+import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
-import androidx.navigation.fragment.findNavController
-import androidx.core.os.bundleOf
-import androidx.fragment.app.activityViewModels
 
+@AndroidEntryPoint
 class HomeFragment: Fragment() {
    private  var _binding: FragmentHomeBinding? = null
     val binding get() = _binding!!
@@ -60,7 +66,10 @@ class HomeFragment: Fragment() {
             onProductClick = { product ->
                 println("DEBUG: Product clicked - ID: ${product.id}, Title: ${product.title}")
                 try {
-                    findNavController().navigate(R.id.productDetailFragment, bundleOf("productId" to product.id))
+                    findNavController().navigate(
+                        R.id.productDetailFragment,
+                        bundleOf("productId" to product.id)
+                    )
                     println("DEBUG: Navigation successful to product detail")
                 } catch (e: Exception) {
                     println("DEBUG: Navigation failed: ${e.message}")
@@ -101,13 +110,13 @@ class HomeFragment: Fragment() {
     }
 
     private fun setupSearchBar() {
-        binding.etSearch.addTextChangedListener(object : android.text.TextWatcher {
+        binding.etSearch.addTextChangedListener(object : TextWatcher {
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
                 searchText = s?.toString() ?: ""
                 filterAndDisplayProducts()
             }
-            override fun afterTextChanged(s: android.text.Editable?) {}
+            override fun afterTextChanged(s: Editable?) {}
         })
     }
 

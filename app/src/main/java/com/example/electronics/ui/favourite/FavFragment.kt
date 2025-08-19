@@ -1,5 +1,4 @@
-// FavFragment.kt
-package com.example.electronics
+package com.example.electronics.ui.favourite
 
 import android.os.Bundle
 import android.text.Editable
@@ -7,19 +6,22 @@ import android.text.TextWatcher
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
+import com.example.electronics.R
 import com.example.electronics.data.model.Product
 import com.example.electronics.databinding.FragmentFavBinding
 import com.example.electronics.ui.adapter.ProductAdapter
 import com.example.electronics.viewmodel.ProductViewModel
+import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
-import androidx.navigation.fragment.findNavController
-import androidx.core.os.bundleOf
-import androidx.fragment.app.activityViewModels
 
+@AndroidEntryPoint
 class FavFragment : Fragment() {
     private var _binding: FragmentFavBinding? = null
     private val binding get() = _binding!!
@@ -48,17 +50,20 @@ class FavFragment : Fragment() {
 
     private fun setupRecyclerView() {
         binding.recyclerFavorites.layoutManager = GridLayoutManager(requireContext(), 2)
-        
+
         favoritesAdapter = ProductAdapter(
             emptyList(),
             onFavoriteClick = { product ->
                 viewModel.toggleFavorite(product)
             },
             onProductClick = { product ->
-                findNavController().navigate(R.id.productDetailFragment, bundleOf("productId" to product.id))
+                findNavController().navigate(
+                    R.id.productDetailFragment,
+                    bundleOf("productId" to product.id)
+                )
             }
         )
-        
+
         binding.recyclerFavorites.adapter = favoritesAdapter
     }
 
@@ -104,7 +109,7 @@ class FavFragment : Fragment() {
         }
 
         favoritesAdapter.updateData(filtered)
-        
+
         if (filtered.isEmpty()) {
             if (allFavorites.isEmpty()) {
                 binding.emptyStateLayout.visibility = View.VISIBLE

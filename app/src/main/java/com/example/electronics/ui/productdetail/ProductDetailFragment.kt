@@ -1,22 +1,25 @@
-package com.example.electronics
+package com.example.electronics.ui.productdetail
 
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.bumptech.glide.request.RequestOptions
+import com.example.electronics.R
 import com.example.electronics.data.model.Product
 import com.example.electronics.databinding.ProductDetailBinding
 import com.example.electronics.viewmodel.ProductViewModel
+import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
-import androidx.fragment.app.activityViewModels
 
+@AndroidEntryPoint
 class ProductDetailFragment : Fragment() {
     private var _binding: ProductDetailBinding? = null
     private val binding get() = _binding!!
@@ -39,14 +42,14 @@ class ProductDetailFragment : Fragment() {
         setupUI()
         val productId = arguments?.getInt("productId") ?: -1
         println("DEBUG: ProductDetailFragment created with productId: $productId")
-        
+
         if (productId == -1) {
             println("DEBUG: ERROR - No productId received!")
             // Show error or navigate back
             findNavController().navigateUp()
             return
         }
-        
+
         // Try to get product from the already loaded list first
         val productFromList = viewModel.getProductFromList(productId)
         if (productFromList != null) {
@@ -56,7 +59,7 @@ class ProductDetailFragment : Fragment() {
 
             viewModel.fetchProductById(productId)
         }
-        
+
         observeProductDetails()
     }
 
@@ -107,7 +110,8 @@ class ProductDetailFragment : Fragment() {
 
         Glide.with(requireContext())
             .load(imageUrl)
-            .apply(RequestOptions()
+            .apply(
+                RequestOptions()
                 .placeholder(R.drawable.placeholder_image)
                 .error(R.drawable.placeholder_image)
                 .diskCacheStrategy(DiskCacheStrategy.ALL)
